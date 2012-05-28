@@ -169,6 +169,8 @@ module Dcmgr
     autoload :Ifs, 'dcmgr/drivers/ifs.rb'
     autoload :IfsIscsi, 'dcmgr/drivers/ifs_iscsi'
     autoload :IfsStorage, 'dcmgr/drivers/ifs_storage'
+    autoload :BackupStorage, 'dcmgr/drivers/backup_storage'
+    autoload :Webdav, 'dcmgr/drivers/webdav'
   end
   
   autoload :StorageService, 'dcmgr/storage_service'
