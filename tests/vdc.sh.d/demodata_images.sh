@@ -24,16 +24,23 @@ for meta in $data_path/image-*.meta; do
     
     localpath=$tmp_path/images/$localname
     chksum=$(md5sum $localpath | cut -d ' ' -f1)
+    size=$(ls -l "$localpath" | awk '{print $5}')
+    
+    shlog ./bin/vdc-manage backupobject add \
+      --storage-id=bkst-demo2 \
+      --uuid bo-${uuid} \
+      --object-key=$localname \
+      --size=$size \
+      --checksum="$chksum" \
+      --description='kvm 32bit'
     
     case $storetype in
       "local")
-        shlog ./bin/vdc-manage image add local ${localpath} \
-          --md5sum $chksum \
+        shlog ./bin/vdc-manage image add local bo-${uuid} \
           --account-id ${account_id} \
           --uuid wmi-${uuid} \
           --arch ${arch} \
           --description "${localname} local" \
-          --state init \
           --file_format ${fileformat} \
           --root_device ${rootdevice} \
           --service-type ${service_type} \
@@ -41,8 +48,7 @@ for meta in $data_path/image-*.meta; do
         ;;
       
       "volume")
-        shlog ./bin/vdc-manage image add volume snap-${uuid} \
-          --md5sum ${chksum} \
+        shlog ./bin/vdc-manage image add volume bo-${uuid} \
           --account-id ${account_id} \
           --uuid wmi-${uuid} \
           --arch ${arch} \

@@ -153,7 +153,6 @@ Sequel.migration do
       add_column :service_type, "varchar(255)", :null=>false
     end
 
-<<<<<<< HEAD
     # Add display_name column
     alter_table(:instances) do
       add_column :display_name, "varchar(255)", :null=>false
@@ -176,17 +175,17 @@ Sequel.migration do
     alter_table(:ssh_key_pairs) do
       add_column :display_name, "varchar(255)", :null=>false
     end
-=======
+    
     # # it is changed to represent the attributes for the bootable
     # # backup object. Any machine images have to be 
     # # saved as backup object at first and then register nessecary
     # # additional information here.
-    # alter_table(:images) do
-    #   add_column :backup_object_id, "varchar(255)", :null=>false
-    #   drop_column :source
-    #   drop_column :md5sum
-    #   drop_column :boot_dev_type
-    # end
+    alter_table(:images) do
+      add_column :backup_object_id, "varchar(255)", :null=>false
+      drop_column :source
+      drop_column :md5sum
+      #drop_column :boot_dev_type
+    end
     
     create_table(:backup_objects) do
       primary_key :id, :type=>"int(11)"
@@ -286,7 +285,6 @@ Sequel.migration do
       drop_column :service_type
     end
 
-<<<<<<< HEAD
     # Delete display_name column
     alter_table(:instances) do
       drop_column :display_name
@@ -309,8 +307,7 @@ Sequel.migration do
     alter_table(:ssh_key_pairs) do
       drop_column :display_name
     end
-=======
+
     drop_table(:backup_storages)
->>>>>>> add model and CLI for backup storage.
   end
 end
